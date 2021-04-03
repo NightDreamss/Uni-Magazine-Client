@@ -1,8 +1,7 @@
 export const Footer = () => {
   return (
-    <div className="container px-4 pt-16 mx-auto md:px-24 lg:px-8">
-      <div className="grid gap-10 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4"></div>
-      <div className="flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
+    <div className="px-4 pt-16 mx-auto md:px-24 lg:px-8">
+      <div className="container mx-auto flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
         <div className="sm:col-span-2">
           <h1
             aria-label="Go home"

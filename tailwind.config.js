@@ -317,7 +317,7 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: { backgroundColor: ["odd"], borderRadius: ["first", "last"] },
   },
   plugins: [],
 };

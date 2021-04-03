@@ -1,83 +1,170 @@
 import React from "react";
 import Post from "./Post/Post";
-import { Link } from "react-router-dom";
 import Title from "../Title";
-import { useSelector } from "react-redux";
+import { BsLayoutTextSidebarReverse } from "react-icons/bs";
+import Skeleton from "../Skeleton";
+import { Link } from "react-router-dom";
+import moment from "moment";
 
-const Posts = () => {
-  const posts = useSelector((state) => state.posts);
-  console.log(posts);
+const Posts = ({
+  recent,
+  title,
+  user,
+  posts,
+  admin,
+  student,
+  setPost,
+  guest,
+  closure,
+  closureSettings,
+  createMagazine,
+}) => {
+  let userPosts = posts.reduce((filtered, post) => {
+    if (user?.result?._id === post.creator) {
+      let userPosts = { post };
+      filtered.push(userPosts);
+    }
+    return filtered;
+  }, []);
+
+  let statusPosts = posts.reduce((filtered, post) => {
+    if (post.status === true) {
+      let showPosts = { post };
+      filtered.push(showPosts);
+    }
+    return filtered;
+  }, []);
+
   return (
-    <section className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-      <div className="flex flex-col w-full mb-6 lg:justify-between lg:flex-row md:mb-8">
-        <div className="flex items-center mb-5 md:mb-6 group lg:max-w-xl">
-          <a href="/" aria-label="Item" className="mr-3">
-            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-indigo-50">
-              <svg
-                className="w-12 h-12 text-deep-purple-accent-400"
-                stroke="currentColor"
-                viewBox="0 0 52 52"
-              >
-                <polygon
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                  points="29 13 14 29 25 29 23 39 38 23 27 23"
-                />
-              </svg>
+    <section className="mx-auto py-12 ">
+      <div className="container mx-auto flex flex-col w-full mb-6 lg:justify-between lg:flex-row md:mb-8">
+        <div className="flex items-center mb-5 md:mb-6 justify-between w-full">
+          <div className="flex">
+            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-indigo-50 mr-3">
+              <BsLayoutTextSidebarReverse className=" text-blue-accent-400 text-2xl" />
             </div>
-          </a>
-          <h2 className="font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl">
-            <Title title="Recent Magazines" />
-            <div className="h-1 ml-auto duration-300 origin-left transform bg-deep-purple-accent-400 scale-x-30 group-hover:scale-x-100" />
-          </h2>
+            <h2 className="font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl">
+              <Title title={title} />
+              <div className="h-1 ml-auto duration-300 origin-left transform bg-blue-accent-400 scale-x-30" />
+            </h2>
+          </div>
+
+          {closure === true ? (
+            <div className="py-6">
+              <Title title="The Posting Period is closed at this time!" />
+              <p className="py-4">
+                The administrator has restricted posted from{" "}
+                {moment(closureSettings[0].start).format("DD-MMMM-YYYY")} to{" "}
+                {moment(closureSettings[0].end).format("DD-MMMM-YYYY")}
+              </p>
+            </div>
+          ) : (
+            createMagazine && (
+              <div>
+                <Link
+                  to="/createMagazine"
+                  aria-label="Create Magazine"
+                  className="text-sm lg:text-base mt-8 py-2 px-4 lg:px-6 font-semibold bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 text-gray-100 rounded cursor-pointer shadow hover:shadow-none mr-8"
+                >
+                  Create A Magazine
+                </Link>
+              </div>
+            )
+          )}
         </div>
       </div>
-
-      {!posts.length ? (
-        <div className="grid gap-8 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
-          <div>
-            <div className="w-full h-56 mb-6 rounded shadow-lg skeleton-box md:h-64 xl:h-80" />
-            <div className="w-full h-8 mb-4 rounded shadow skeleton-box" />
-            <div className="w-full h-20 mb-2 rounded shadow skeleton-box" />
+      <div className="container mx-auto">
+        {!posts.length ? (
+          <div className="grid gap-8 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
+            <Skeleton postSkeleton />
+            <Skeleton postSkeleton />
+            <Skeleton postSkeleton />
           </div>
-          <div>
-            <div className="w-full h-56 mb-6 rounded shadow-lg skeleton-box md:h-64 xl:h-80" />
-            <div className="w-full h-8 mb-4 rounded shadow skeleton-box" />
-            <div className="w-full h-20 mb-2 rounded shadow skeleton-box" />
+        ) : recent === true ? (
+          <div className="grid gap-8 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
+            {statusPosts.length ? (
+              <>
+                {statusPosts
+                  .slice()
+                  .reverse()
+                  .slice(0, 3)
+                  .map((post) => (
+                    <div key={post.post._id}>
+                      <Post post={post.post} user={user} setPost={setPost} />
+                    </div>
+                  ))}
+              </>
+            ) : (
+              <h1 className="text-xl font-semibold">
+                No post has been published as yet!
+              </h1>
+            )}
           </div>
-          <div>
-            <div className="w-full h-56 mb-6 rounded shadow-lg skeleton-box md:h-64 xl:h-80" />
-            <div className="w-full h-8 mb-4 rounded shadow skeleton-box" />
-            <div className="w-full h-20 mb-2 rounded shadow skeleton-box" />
+        ) : (
+          <div className="grid gap-8 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
+            {student ? (
+              <>
+                {userPosts.length ? (
+                  userPosts
+                    .slice()
+                    .reverse()
+                    .map((post) => (
+                      <div key={post.post._id}>
+                        <Post post={post.post} user={user} setPost={setPost} />
+                      </div>
+                    ))
+                ) : (
+                  <h1 className="text-xl font-semibold">
+                    You have not created any post as yet!
+                  </h1>
+                )}
+              </>
+            ) : guest ? (
+              <>
+                {statusPosts.length ? (
+                  statusPosts
+                    .slice()
+                    .reverse()
+                    .map((post) => (
+                      <div key={post.post._id}>
+                        <Post post={post.post} user={user} setPost={setPost} />
+                      </div>
+                    ))
+                ) : (
+                  <h1 className="text-xl font-semibold">
+                    No post has been published as yet!
+                  </h1>
+                )}
+              </>
+            ) : admin ? (
+              <>
+                {posts.length ? (
+                  posts
+                    .slice()
+                    .reverse()
+                    .map((post) => (
+                      <div key={post._id}>
+                        <Post
+                          post={post}
+                          user={user}
+                          admin={admin}
+                          setPost={setPost}
+                        />
+                      </div>
+                    ))
+                ) : (
+                  <h1 className="text-xl font-semibold">
+                    No post has been created as yet!
+                  </h1>
+                )}
+              </>
+            ) : (
+              <h1 className="text-xl font-semibold">
+                No post has been published as yet!
+              </h1>
+            )}
           </div>
-        </div>
-      ) : (
-        <div className="grid gap-8 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
-          {posts.slice(0, 3).map((post) => (
-            <div key={post._id}>
-              <Post post={post} />
-            </div>
-          ))}
-        </div>
-      )}
-
-      <div className="text-center">
-        <Link
-          to="/magazines"
-          aria-label="show more magazines"
-          className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-        >
-          See more
-          <svg
-            className="inline-block w-3 ml-2"
-            fill="currentColor"
-            viewBox="0 0 12 12"
-          >
-            <path d="M9.707,5.293l-5-5A1,1,0,0,0,3.293,1.707L7.586,6,3.293,10.293a1,1,0,1,0,1.414,1.414l5-5A1,1,0,0,0,9.707,5.293Z" />
-          </svg>
-        </Link>
+        )}
       </div>
     </section>
   );
