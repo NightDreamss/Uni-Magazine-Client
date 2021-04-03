@@ -128,7 +128,9 @@ const Post = ({ post, user, admin, setPost }) => {
           </p>
         </div>
 
-        <p className="text-gray-700 mt-2 mb-4 capitalize">{post.desc}</p>
+        <p className="text-gray-700 mt-2 mb-4 capitalize overflow-ellipsis whitespace-nowrap overflow-hidden">
+          {post.desc}
+        </p>
         <button
           data-tip="Please Login to like this magazine"
           onClick={() => {

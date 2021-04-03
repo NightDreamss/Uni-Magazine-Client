@@ -27,7 +27,7 @@ const PostView = ({ user, posts }) => {
       <div className="mx-auto lg:max-w-3xl">
         {post.map((post) => (
           <div key={post.post._id}>
-            <div className="flex justify-between mb-8">
+            <div className="flex justify-between">
               <h2 className="capitalize font-semibold text-xl">
                 {post.post.name}
               </h2>
@@ -35,19 +35,19 @@ const PostView = ({ user, posts }) => {
                 {moment(post.post.dateCreated).fromNow()}
               </p>
             </div>
-            <div className="md:mx-auto">
+            <div className="md:mx-auto py-4">
               <Title title={post.post.title} />
-              <p className="text-base text-gray-700 md:text-lg py-4 capitalize text-left">
-                {post.desc}
-              </p>
             </div>
-            <div className="mb-4 transition-shadow duration-300 hover:shadow-xl lg:mb-6">
+            <div className="mb-4 transition-shadow duration-300 hover:shadow-xl">
               <img
                 className="object-cover w-full h-56 rounded shadow-lg sm:h-64 md:h-80 lg:h-96"
                 src={post.post.image}
                 alt={post.post.title}
               />
             </div>
+            <p className="text-base text-gray-700 md:text-lg py-4 capitalize text-left">
+              {post.post.desc}
+            </p>
           </div>
         ))}
 
