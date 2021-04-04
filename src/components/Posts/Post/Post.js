@@ -128,7 +128,7 @@ const Post = ({ post, user, admin, setPost }) => {
           </p>
         </div>
 
-        <p className="text-gray-700 mt-2 mb-4 capitalize overflow-ellipsis whitespace-nowrap overflow-hidden">
+        <p className="text-gray-700 mt-2 mb-4 capitalize overflow-ellipsis whitespace-nowrap overflow-hidden w-72">
           {post.desc}
         </p>
         <button

@@ -75,13 +75,13 @@ const Posts = ({
       </div>
       <div className="container mx-auto">
         {!posts.length ? (
-          <div className="grid gap-8 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
+          <div className="grid gap-6 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
             <Skeleton postSkeleton />
             <Skeleton postSkeleton />
             <Skeleton postSkeleton />
           </div>
         ) : recent === true ? (
-          <div className="grid gap-8 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
+          <div className="grid gap-6 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
             {statusPosts.length ? (
               <>
                 {statusPosts
@@ -101,7 +101,7 @@ const Posts = ({
             )}
           </div>
         ) : (
-          <div className="grid gap-8 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
+          <div className="grid gap-6 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
             {student ? (
               <>
                 {userPosts.length ? (
