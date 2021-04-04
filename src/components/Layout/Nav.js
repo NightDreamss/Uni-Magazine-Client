@@ -177,9 +177,9 @@ export const Nav = ({ user, setUser, admin, setPost }) => {
                           onClick={() => setIsMenuOpen(false)}
                         />
                         <NavLink
-                          to="/manageStudents"
-                          label="Manage Students"
-                          title="Manage Students"
+                          to="/manageUsers"
+                          label="Manage Users"
+                          title="Manage Users"
                           mini
                           onClick={() => setIsMenuOpen(false)}
                         />

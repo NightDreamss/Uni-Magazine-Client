@@ -24,7 +24,7 @@ const PostView = ({ user, posts }) => {
       >
         Go Back To Magazines
       </Link>
-      <div className="mx-auto lg:max-w-3xl">
+      <div className="mx-auto lg:max-w-3xl mt-4">
         {post.map((post) => (
           <div key={post.post._id}>
             <div className="flex justify-between">

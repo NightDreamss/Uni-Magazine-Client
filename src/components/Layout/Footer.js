@@ -28,7 +28,7 @@ export const Footer = () => {
             </span>
           </h1>
         </div>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 mb-4 lg:mb-0">
           © Copyright 2021 Brandon Litren. All rights reserved.
         </p>
       </div>

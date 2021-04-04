@@ -42,7 +42,7 @@ const Students = ({ registeredUsers, admin, setState }) => {
         </div>
       ) : admin ? (
         <div className="grid gap-10 mx-auto lg:max-w-screen-lg sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {registeredUsers.reverse().map((student) => (
+          {registeredUsers.map((student) => (
             <div className="flex flex-col items-center" key={student._id}>
               <img
                 className="object-cover w-12 h-12 my-auto rounded-full shadow mb-2 bg-white"

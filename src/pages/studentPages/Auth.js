@@ -30,7 +30,7 @@ export const SignIn = () => {
   return (
     <section className="flex flex-wrap w-full mt-20 pt-24 bg-gradient-to-t to-green-100 from-white">
       <div className="mx-auto lg:flex lg:justify-between container">
-        <div className="lg:flex lg:flex-col w-full lg:w-1/2 pr-12">
+        <div className="lg:flex lg:flex-col w-full lg:w-1/2 lg:pr-12">
           <div className="flex flex-col justify-center px-8 pt-8 md:pt-0">
             <p className="text-3xl text-center">
               {!isSignup
